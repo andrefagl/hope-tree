@@ -1,0 +1,26 @@
+body {
+    height: 100vh;
+}
+
+.contact-form-wrapper {
+    padding: 0 1rem;
+    background-image: url("../assets/images/dog-1.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.form-input::-webkit-input-placeholder {
+    transition: all 0.4s ease 0s;
+}
+
+.form-input:-moz-placeholder {
+    transition: all 0.4s ease 0s;
+}
+
+.form-input::-moz-placeholder {
+    transition: all 0.4s ease 0s;
+}
+
+.form-input:-ms-input-placeholder {
+    transition: all 0.4s ease 0s;
+}

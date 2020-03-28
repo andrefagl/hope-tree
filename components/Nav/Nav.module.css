@@ -1,0 +1,29 @@
+.nav {
+    background-color: transparent;
+}
+
+.nav:not(.isFullScreen) {
+    border-color: #e2e8f0;
+    border-bottom-width: 1px;
+}
+
+.logoWrapper {
+    height: 40px;
+}
+
+.logo {
+    background-image: url("../../assets/images/logo.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+}
+
+.signin {
+    width: 40px;
+    height: 40px;
+}
+
+.menu {
+    height: 40px;
+}
