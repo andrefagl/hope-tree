@@ -1,0 +1,8 @@
+{
+    "env": {
+        "UNSPLASH_ACCESS_KEY": "@unsplash-access-key",
+        "UNSPLASH_SECRET": "@unsplash-secret",
+        "UNSPLASH_CALLBACK_URL": "@unsplash-callback-url",
+        "UNSPLASH_BEARER_TOKEN": "@unsplash-bearer-token"
+    }
+}

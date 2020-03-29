@@ -22,10 +22,10 @@ export default async (req, res) => {
         // Create an unsplash instance if one does not already exists
         if (!unsplash) {
             unsplash = new Unsplash({
-                accessKey: "DUMMY",
-                secret: "DUMMY",
-                callbackUrl: "DUMMY",
-                bearerToken: "DUMMY"
+                accessKey: process.env.UNSPLASH_ACCESS_KEY,
+                secret: process.env.UNSPLASH_SECRET,
+                callbackUrl: process.env.UNSPLASH_CALLBACK_URL,
+                bearerToken: process.env.UNSPLASH_BEARER_TOKEN
             });
         }
 
