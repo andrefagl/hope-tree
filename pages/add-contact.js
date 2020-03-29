@@ -55,7 +55,8 @@ const AddContact = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        setBackgroundPhoto(getRandomPhoto());
+        const { width_80 } = getRandomPhoto([80]);
+        setBackgroundPhoto(width_80);
     }, []);
 
     const [leaves, setLeafs] = useState([]);

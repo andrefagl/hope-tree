@@ -37,7 +37,7 @@ const getTreeOfHopeCollectionPhotos = async instance => {
     return JSON.stringify(collectionPhotos);
 };
 
-const getRandomPhoto = () => {
+const getRandomPhoto = widths => {
     const selectedPhoto =
         (Array.isArray(collectionPhotos) &&
             collectionPhotos.length &&
@@ -48,7 +48,17 @@ const getRandomPhoto = () => {
 
     if (selectedPhoto === null) return "";
 
-    return selectedPhoto.urls.raw;
+    const photoRawUrl = selectedPhoto.urls.raw;
+    const photo = {};
+    photo.raw = photoRawUrl;
+
+    if (widths && Array.isArray(widths) && widths.length) {
+        widths.forEach(width => {
+            photo[`width_${width}`] = `${photoRawUrl}&w=${width}`;
+        });
+    }
+
+    return photo;
 };
 
 export { createInstance, getTreeOfHopeCollectionPhotos, getRandomPhoto };
