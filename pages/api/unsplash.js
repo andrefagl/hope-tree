@@ -1,7 +1,9 @@
-import fetch from "isomorphic-unfetch";
-import Unsplash, { toJson } from "unsplash-js";
 import fs from "fs";
 import { promisify } from "util";
+import {
+    createInstance as createUnsplashInstance,
+    getTreeOfHopeCollectionPhotos
+} from "../../utils/unsplash";
 
 const createFile = promisify(fs.writeFile);
 const fileExists = promisify(fs.exists);
@@ -21,26 +23,15 @@ export default async (req, res) => {
 
         // Create an unsplash instance if one does not already exists
         if (!unsplash) {
-            unsplash = new Unsplash({
-                accessKey: process.env.UNSPLASH_ACCESS_KEY,
-                secret: process.env.UNSPLASH_SECRET,
-                callbackUrl: process.env.UNSPLASH_CALLBACK_URL,
-                bearerToken: process.env.UNSPLASH_BEARER_TOKEN
-            });
+            unsplash = createUnsplashInstance();
         }
 
         // Fetch collections data from unsplash
-        const collectionsResponse = await unsplash.collections.getCollectionPhotos(
-            9772745,
-            1,
-            30
-        );
-        const collections = await toJson(collectionsResponse);
-        const fileContent = JSON.stringify(collections);
+        const collectionPhotos = await getTreeOfHopeCollectionPhotos(unsplash);
 
         await createFile(
-            "fixtures/unsplash-collection.js",
-            `export default ${fileContent};`,
+            filePath,
+            `export default ${collectionPhotos};`,
             "utf8",
             err => {
                 if (err) {
