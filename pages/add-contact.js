@@ -1,4 +1,5 @@
-import { useState, useReducer } from "react";
+import { useState, useReducer, useEffect } from "react";
+import { getRandomPhoto } from "../utils/unsplash";
 
 const steps = {
     name: 0,
@@ -46,11 +47,16 @@ const AddContact = () => {
         step: steps.name
     });
 
+    const [backgroundPhoto, setBackgroundPhoto] = useState("");
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        setBackgroundPhoto(getRandomPhoto());
+    }, []);
 
     const [leaves, setLeafs] = useState([]);
 
@@ -63,7 +69,12 @@ const AddContact = () => {
     };
 
     return (
-        <div className="contact-form-wrapper py-4 flex flex-col h-full justify-center">
+        <div
+            className="contact-form-wrapper py-4 flex flex-col h-full justify-center"
+            style={{
+                backgroundImage: `url(${backgroundPhoto})`
+            }}
+        >
             <div className="contact-form">
                 <div>This is on step: {step + 1}</div>
                 <button

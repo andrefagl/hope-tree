@@ -1,5 +1,6 @@
 import fetch from "isomorphic-unfetch";
 import Unsplash, { toJson } from "unsplash-js";
+import collectionPhotos from "../fixtures/unsplash-collection";
 
 const createInstance = () =>
     new Unsplash({
@@ -19,4 +20,18 @@ const getTreeOfHopeCollectionPhotos = async instance => {
     return JSON.stringify(collections);
 };
 
-export { createInstance, getTreeOfHopeCollectionPhotos };
+const getRandomPhoto = () => {
+    const selectedPhoto =
+        (Array.isArray(collectionPhotos) &&
+            collectionPhotos.length &&
+            collectionPhotos[
+                Math.floor(Math.random() * collectionPhotos.length)
+            ]) ||
+        null;
+
+    if (selectedPhoto === null) return "";
+
+    return selectedPhoto.urls.raw;
+};
+
+export { createInstance, getTreeOfHopeCollectionPhotos, getRandomPhoto };
