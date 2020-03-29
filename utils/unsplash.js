@@ -11,13 +11,30 @@ const createInstance = () =>
     });
 
 const getTreeOfHopeCollectionPhotos = async instance => {
-    const collectionsResponse = await instance.collections.getCollectionPhotos(
-        9772745,
-        1,
-        30
+    const collectionID = 9772745;
+    const collectionDetailsResponse = await instance.collections.getCollection(
+        collectionID
     );
-    const collections = await toJson(collectionsResponse);
-    return JSON.stringify(collections);
+    const collectionDetails = await toJson(collectionDetailsResponse);
+    const maxItemsPerRequest = 30;
+    const totalPhotos =
+        ("object" === typeof collectionDetails &&
+            collectionDetails.total_photos) ||
+        maxItemsPerRequest;
+    const totalPages = Math.ceil(Number(totalPhotos / maxItemsPerRequest));
+
+    let collectionPhotos = [];
+    for (let page = 1; page <= totalPages; page++) {
+        const collectionsResponse = await instance.collections.getCollectionPhotos(
+            collectionID,
+            page,
+            maxItemsPerRequest
+        );
+        const collectionPageResults = await toJson(collectionsResponse);
+        collectionPhotos = [...collectionPhotos, ...collectionPageResults];
+    }
+
+    return JSON.stringify(collectionPhotos);
 };
 
 const getRandomPhoto = () => {
